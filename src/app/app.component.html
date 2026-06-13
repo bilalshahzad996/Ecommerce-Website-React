@@ -1,0 +1,384 @@
+<!-- SCROLL CIRCLE -->
+<div class="scroll-circle-wrap" [class.visible]="isScrolled">
+  <svg class="scroll-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"
+       [style.transform]="'rotate(' + scrollRotation + 'deg)'">
+    <defs>
+      <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7c3aed"/>
+        <stop offset="100%" stop-color="#06b6d4"/>
+      </linearGradient>
+    </defs>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(124,58,237,0.15)" stroke-width="1.5"/>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="url(#ringGrad)" stroke-width="2"
+            stroke-dasharray="6 10" stroke-linecap="round"/>
+    <circle cx="60" cy="6"  r="4" fill="#7c3aed"/>
+    <circle cx="60" cy="114" r="3" fill="#06b6d4" opacity="0.6"/>
+  </svg>
+
+  <svg class="scroll-text-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"
+       [style.transform]="'rotate(' + scrollRotation * 0.4 + 'deg)'">
+    <defs>
+      <path id="textCircle" d="M60,60 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/>
+    </defs>
+    <text font-size="9.5" font-family="'Poppins',sans-serif" font-weight="600"
+          fill="rgba(167,139,250,0.7)" letter-spacing="3.5">
+      <textPath href="#textCircle">BILAL SHAHZAD · DEVELOPER · </textPath>
+    </text>
+  </svg>
+
+  <div class="scroll-circle-inner">
+    <span class="scroll-initials">BS</span>
+    <div class="scroll-progress-ring">
+      <svg viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r="15.9" fill="none"
+                stroke="rgba(124,58,237,0.15)" stroke-width="2"/>
+        <circle cx="18" cy="18" r="15.9" fill="none"
+                stroke="url(#ringGrad)" stroke-width="2"
+                stroke-dasharray="100"
+                [attr.stroke-dashoffset]="100 - scrollProgress"
+                stroke-linecap="round"
+                transform="rotate(-90 18 18)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="nav-container">
+    <a class="nav-brand" (click)="scrollTo('home')">
+      <span class="brand-bracket">&lt;</span>
+      <span class="brand-name">Bilal</span>
+      <span class="brand-slash">/</span>
+      <span class="brand-bracket">&gt;</span>
+    </a>
+
+    <ul class="nav-links" [class.open]="isMenuOpen">
+      @for (link of navLinks; track link) {
+        <li>
+          <a class="nav-link" [class.active]="activeSection === link.toLowerCase()"
+             (click)="scrollTo(link)">{{ link }}</a>
+        </li>
+      }
+    </ul>
+
+    <button class="hire-btn" (click)="scrollTo('contact')">Hire Me</button>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [class.open]="isMenuOpen" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge animate-on-scroll">
+      <i class="fa-solid fa-circle-dot pulse-dot"></i>
+      Available for Freelance & Full-time
+    </div>
+
+    <h1 class="hero-title animate-on-scroll">
+      Hi, I'm <span class="gradient-text">Bilal Shahzad</span>
+    </h1>
+
+    <div class="hero-role animate-on-scroll">
+      <span class="role-prefix">I'm a </span>
+      <span class="typed-text">{{ displayedText }}</span>
+      <span class="cursor">|</span>
+    </div>
+
+    <p class="hero-desc animate-on-scroll">
+      Crafting enterprise-grade ERP solutions and beautiful digital experiences.
+      Specializing in Microsoft Business Central, F&O, Odoo, and modern front-end development.
+    </p>
+
+    <div class="hero-actions animate-on-scroll">
+      <button class="btn-primary" (click)="scrollTo('contact')">
+        <i class="fa-solid fa-paper-plane"></i> Get in Touch
+      </button>
+      <button class="btn-secondary" (click)="scrollTo('services')">
+        <i class="fa-solid fa-eye"></i> View Services
+      </button>
+    </div>
+
+    <div class="hero-socials animate-on-scroll">
+      <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com" target="_blank" class="social-icon" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="mailto:bilal@example.com" class="social-icon" aria-label="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="avatar-wrapper animate-on-scroll">
+      <div class="avatar-ring ring-1"></div>
+      <div class="avatar-ring ring-2"></div>
+      <div class="avatar-ring ring-3"></div>
+      <div class="avatar-circle">
+        <div class="avatar-initials">BS</div>
+      </div>
+      <div class="floating-badge badge-bc">
+        <i class="fa-solid fa-building-columns"></i> BC Dev
+      </div>
+      <div class="floating-badge badge-ux">
+        <i class="fa-solid fa-pen-ruler"></i> UI/UX
+      </div>
+      <div class="floating-badge badge-odoo">
+        <i class="fa-solid fa-cubes"></i> Odoo
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" (click)="scrollTo('about')">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <span>Scroll Down</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  @for (stat of stats; track stat.label) {
+    <div class="stat-item animate-on-scroll">
+      <span class="stat-value gradient-text">{{ stat.value }}</span>
+      <span class="stat-label">{{ stat.label }}</span>
+    </div>
+  }
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-tag">About Me</span>
+      <h2 class="section-title">Who I Am</h2>
+      <p class="section-subtitle">Passionate about building solutions that make businesses thrive</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-visual animate-on-scroll">
+        <div class="about-card-main">
+          <div class="about-initials-large">BS</div>
+          <div class="about-glow"></div>
+        </div>
+        <div class="about-card-floating card-exp">
+          <span class="card-num gradient-text">5+</span>
+          <span class="card-txt">Years of<br>Experience</span>
+        </div>
+        <div class="about-card-floating card-tech">
+          <span class="card-num gradient-text">10+</span>
+          <span class="card-txt">Technologies<br>Mastered</span>
+        </div>
+      </div>
+
+      <div class="about-content animate-on-scroll">
+        <h3 class="about-heading">
+          Building Enterprise Solutions &amp; Digital Experiences
+        </h3>
+        <p class="about-text">
+          I'm <strong>Bilal Shahzad</strong>, a versatile technology professional with expertise spanning
+          ERP development, UI/UX design, and modern web development. With 5+ years of hands-on experience,
+          I bridge the gap between business requirements and technical implementation.
+        </p>
+        <p class="about-text">
+          My work revolves around Microsoft Dynamics 365 Business Central, Finance & Operations,
+          Odoo ERP, and building polished front-end interfaces. I thrive on solving complex business
+          challenges with elegant, scalable solutions.
+        </p>
+
+        <div class="about-highlights">
+          @for (item of ['Microsoft Dynamics 365 Certified', 'ERP Implementation Expert', 'Agile & Scrum Practitioner', 'Clean Code Advocate']; track item) {
+            <div class="highlight-chip">
+              <i class="fa-solid fa-circle-check"></i> {{ item }}
+            </div>
+          }
+        </div>
+
+        <div class="about-actions">
+          <button class="btn-primary" (click)="downloadCV()">
+            <i class="fa-solid fa-download"></i> Download CV
+          </button>
+          <button class="btn-outline" (click)="scrollTo('contact')">
+            <i class="fa-solid fa-comments"></i> Let's Talk
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section-alt" id="skills">
+  <div class="section-container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-tag">My Skills</span>
+      <h2 class="section-title">Technical Expertise</h2>
+      <p class="section-subtitle">A comprehensive stack built over years of real-world projects</p>
+    </div>
+
+    <div class="skills-grid">
+      @for (skill of skills; track skill.name) {
+        <div class="skill-card animate-on-scroll">
+          <div class="skill-header">
+            <div class="skill-icon" [style.background]="'linear-gradient(135deg, ' + skill.color + '33, ' + skill.color + '11)'">
+              <i [class]="skill.icon" [style.color]="skill.color"></i>
+            </div>
+            <div class="skill-info">
+              <span class="skill-name">{{ skill.name }}</span>
+              <span class="skill-level" [style.color]="skill.color">{{ skill.level }}%</span>
+            </div>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" [style.width]="skill.level + '%'" [style.background]="'linear-gradient(90deg, ' + skill.color + ', ' + skill.color + 'aa)'"></div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="tech-tags animate-on-scroll">
+      @for (tag of ['AL', 'X++', 'Python', 'TypeScript', 'Angular', 'SCSS', 'T-SQL', 'REST APIs', 'Figma', 'Power BI', 'Azure', 'Git']; track tag) {
+        <span class="tech-tag">{{ tag }}</span>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-tag">What I Do</span>
+      <h2 class="section-title">Services</h2>
+      <p class="section-subtitle">End-to-end solutions from ERP development to user interface design</p>
+    </div>
+
+    <div class="services-grid">
+      @for (service of services; track service.title) {
+        <div class="service-card animate-on-scroll">
+          <div class="service-icon-wrap" [style.background]="service.gradient">
+            <i [class]="service.icon"></i>
+          </div>
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-desc">{{ service.desc }}</p>
+          <div class="service-arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-alt" id="contact">
+  <div class="section-container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-tag">Get In Touch</span>
+      <h2 class="section-title">Contact Me</h2>
+      <p class="section-subtitle">Have a project in mind? Let's build something great together.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info animate-on-scroll">
+        <h3 class="contact-heading">Let's Work Together</h3>
+        <p class="contact-text">
+          Whether you need a Business Central extension, F&O customization, Odoo module,
+          or a sleek front-end — I'm here to help turn your vision into reality.
+        </p>
+
+        <div class="contact-items">
+          <a href="mailto:bilal@example.com" class="contact-item">
+            <div class="contact-icon-wrap">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div>
+              <span class="contact-item-label">Email</span>
+              <span class="contact-item-value">bilal&#64;example.com</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="contact-item">
+            <div class="contact-icon-wrap">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <div>
+              <span class="contact-item-label">LinkedIn</span>
+              <span class="contact-item-value">linkedin.com/in/bilalshahzad</span>
+            </div>
+          </a>
+          <div class="contact-item">
+            <div class="contact-icon-wrap">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div>
+              <span class="contact-item-label">Location</span>
+              <span class="contact-item-value">Available Worldwide (Remote)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form animate-on-scroll" (submit)="$event.preventDefault()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Project Inquiry">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary btn-full">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <span class="brand-bracket">&lt;</span>
+      <span class="brand-name">Bilal Shahzad</span>
+      <span class="brand-slash">/</span>
+      <span class="brand-bracket">&gt;</span>
+    </div>
+    <p class="footer-text">
+      Business Central Developer · UI/UX Designer · F&O Consultant · Front End Dev · Odoo Developer
+    </p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com" target="_blank" class="social-icon" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="mailto:bilal@example.com" class="social-icon" aria-label="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Bilal Shahzad. Crafted with <i class="fa-solid fa-heart" style="color:#ef4444"></i></p>
+  </div>
+</footer>
