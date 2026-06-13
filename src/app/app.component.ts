@@ -37,7 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
     { name: 'HTML / CSS / SCSS', level: 94, icon: 'fa-brands fa-html5', color: '#f97316' },
     { name: 'Angular / TypeScript', level: 87, icon: 'fa-brands fa-angular', color: '#ef4444' },
     { name: 'JavaScript', level: 89, icon: 'fa-brands fa-js', color: '#eab308' },
-    { name: 'SQL / T-SQL', level: 86, icon: 'fa-solid fa-server', color: '#22c55e' },
   ];
 
   services = [
@@ -80,9 +79,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
 
   stats = [
-    { value: '5+', label: 'Years Experience' },
-    { value: '50+', label: 'Projects Delivered' },
-    { value: '30+', label: 'Happy Clients' },
+    { value: '2+', label: 'Years Experience' },
+    { value: '10+', label: 'Projects Delivered' },
+    { value: '15+', label: 'Happy Clients' },
     { value: '5', label: 'Core Specializations' }
   ];
 
