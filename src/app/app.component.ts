@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -18,8 +19,14 @@ export class AppComponent implements OnInit, OnDestroy {
   typingSpeed = 100;
   scrollRotation = 0;
   scrollProgress = 0;
+  formSending = false;
+  formSent = false;
+  formError = false;
+  form = { name: '', email: '', subject: '', message: '' };
   private typingTimer: any;
   private observerMap = new Map<Element, IntersectionObserver>();
+
+  private readonly WEB3FORMS_KEY = 'bf865602-6b18-44f7-9cdc-d0e5c879493a';
 
   roles = [
     'Business Central Developer',
@@ -179,5 +186,40 @@ export class AppComponent implements OnInit, OnDestroy {
 
   downloadCV() {
     alert('CV download coming soon!');
+  }
+
+  sendMessage() {
+    if (!this.form.name || !this.form.email || !this.form.message) return;
+    this.formSending = true;
+    this.formError = false;
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: this.WEB3FORMS_KEY,
+        name:       this.form.name,
+        email:      this.form.email,
+        subject:    this.form.subject || 'Portfolio Contact Form',
+        message:    this.form.message,
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.formSending = false;
+      if (data.success) {
+        this.formSent = true;
+        this.form = { name: '', email: '', subject: '', message: '' };
+        setTimeout(() => this.formSent = false, 5000);
+      } else {
+        this.formError = true;
+        setTimeout(() => this.formError = false, 5000);
+      }
+    })
+    .catch(() => {
+      this.formSending = false;
+      this.formError = true;
+      setTimeout(() => this.formError = false, 5000);
+    });
   }
 }

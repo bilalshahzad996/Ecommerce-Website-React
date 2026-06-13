@@ -338,27 +338,43 @@
         </div>
       </div>
 
-      <form class="contact-form animate-on-scroll" (submit)="$event.preventDefault()">
+      <form class="contact-form animate-on-scroll" (submit)="$event.preventDefault(); sendMessage()">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="John Doe">
+            <input type="text" id="name" placeholder="John Doe" [(ngModel)]="form.name" name="name" required>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="john@example.com">
+            <input type="email" id="email" placeholder="john@example.com" [(ngModel)]="form.email" name="email" required>
           </div>
         </div>
         <div class="form-group">
           <label for="subject">Subject</label>
-          <input type="text" id="subject" placeholder="Project Inquiry">
+          <input type="text" id="subject" placeholder="Project Inquiry" [(ngModel)]="form.subject" name="subject">
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+          <textarea id="message" rows="5" placeholder="Tell me about your project..." [(ngModel)]="form.message" name="message" required></textarea>
         </div>
-        <button type="submit" class="btn-primary btn-full">
-          <i class="fa-solid fa-paper-plane"></i> Send Message
+
+        @if (formSent) {
+          <div class="form-feedback success">
+            <i class="fa-solid fa-circle-check"></i> Message sent! I'll get back to you soon.
+          </div>
+        }
+        @if (formError) {
+          <div class="form-feedback error">
+            <i class="fa-solid fa-circle-exclamation"></i> Something went wrong. Please try again.
+          </div>
+        }
+
+        <button type="submit" class="btn-primary btn-full" [disabled]="formSending">
+          @if (formSending) {
+            <i class="fa-solid fa-spinner fa-spin"></i> Sending...
+          } @else {
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          }
         </button>
       </form>
     </div>
